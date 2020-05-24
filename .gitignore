@@ -10,6 +10,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+.next
 .idea
 sample.html
 .env
@@ -18,4 +19,3 @@ node_modules
 package-lock.json
 package.json
 
-.next
