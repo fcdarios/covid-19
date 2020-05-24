@@ -4,28 +4,23 @@
     <h4><a href="https://drive.google.com/file/d/1AwKEMz10ISvipGdUNJunljwkdjKT1aXS/view?usp=sharing">Documento del proyecto</a></h4>
 </div>
 
-### Paso 0 Crear proyecto react
-##### En su lap ejecutan el siguiente comando para crear el proyecto
-    npx create-react-app covid-19
-
-##### Borrar las siguientes carpetas
-    ./public
-    ./src
-##### Borrar los siguientes archivos
-    README.md
+### Paso 0 Clonar repositorio
+    git clone https://github.com/fcdarios/covid-19.git
 
 ### Paso 1 Dentro de la carpeta de su proyecto ejecutar lo siguiente
-    git init
-    git remote add origin https://github.com/fcdarios/covid-19.git
-    git config --global credential.helper wincred
-    git remote
-    git pull origin master
-
-
-### Paso 2 Ejectuar
-    npm start
+    npm init -y
+    npm install next react react-dom
     
+### Paso 2 Dentro de su archivo package.json remplazar la parte de scripts con lo siguiente
+    "scripts": {
+        "dev": "next",
+        "build": "next build",
+        "start": "next start"
+    },
 
+### Paso 3 Ejectuar
+    npm run dev
+    
 ## Comandos git
 
 ###### 1 Antes de subir cualquier cambio hacer pull
