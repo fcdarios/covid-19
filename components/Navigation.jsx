@@ -46,6 +46,13 @@ const Navigation = () => {
                   </a>
               </Link>
           </li>
+          <li className="nav-item">
+              <Link href="/signup">
+                  <a className="nav-link">
+                      Registrarse
+                  </a>
+              </Link>
+          </li>
         </ul>
       </div>
     </nav>
