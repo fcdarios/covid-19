@@ -1,160 +1,121 @@
+import env from '../env.json'
 import Head from 'next/head';
+import Link from 'next/link';
 import Container from '../components/Container';
-import fetch from 'isomorphic-fetch'
-import { useState } from 'react';
+import React, {Fragment, useState, useEffect} from 'react'
+import { useForm } from 'react-hook-form'
+import Router from 'next/router';
 
-const login = (props) => {
 
-    return (
-        <>
-            <Head>
-                <title>Login</title>
-            </Head>
-            <Container>
-                <ul className="nav nav-pills mb-3">
-                    <li className="nav-item active">
-                        <a href="#medicos" className="nav-link active" data-toggle="pill" role="tab">Login Medicos</a>
-                    </li>
-                    <li className="nav-item">
-                        <a href="#pacientes" className="nav-link" data-toggle="pill" role="tab">Login Pacientes</a>
-                    </li>
-                </ul>
-                <div className="tab-content">
-                    <div role="tabpanel" className="tab-pane active" id="medicos">
-                        <form id="formularioMedico">
-                            <div className="card card-body" style={{
-                                height: "20rem",
-                                alignItems: 'center', borderRadius: '25px', WebkitBoxShadow: "0px 0px 24px 3px rgb (220, 229,239)",
-                                MozBboxSshadow: "0px 0px 24px 3px rgb (220, 229,239)", boxShadow: "0px 0px 24px 3px rgb (220, 229,239)"
-                            }}>
-                                <h3 className="text text-success my-3">Login Medicos</h3>
-                                <div className="form-group my-3" style={{ width: '100%' }}>
-                                    <input type="text" className="form-control" name="textMedico" placeholder="nombre de usuario" style={{ borderRadius: '25px', textAlign: "center" }} />
-                                </div>
-                                <div className="form-group" style={{ width: '100%' }}>
-                                    <input type="password" className="form-control" name="textPassMedico" placeholder="contraseña" style={{ borderRadius: '25px', textAlign: "center" }} />
-                                </div>
-                                <div style={{ width: '100%' }}>
-                                    <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', borderRadius: '25px' }} onClick={login.LoginMedico}>Iniciar sesion</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div role="tabpanel" className="tab-pane" id="pacientes">
-                        <form>
-                            <div className="card card-body" style={{
-                                height: "20rem",
-                                alignItems: 'center', borderRadius: '25px', WebkitBoxShadow: "0px 0px 30px 3px rgb (220, 229,239)",
-                                MozBboxSshadow: "0px 0px 30px 3px rgb (220, 229,239)", boxShadow: "0px 0px 24px 3px rgb (220, 229,239)"
-                            }}>
-                                <h3 className="text text-success my-3">Login Pacientes</h3>
-                                <div className="form-group my-3" style={{ width: '100%' }}>
-                                    <input type="text" className="form-control" id="textPaciente" placeholder="nombre de usuario" style={{ borderRadius: '25px', textAlign: "center" }} />
-                                </div>
-                                <div className="form-group" style={{ width: '100%' }}>
-                                    <input type="password" className="form-control" id="textPassPaciente" placeholder="contraseña" style={{ borderRadius: '25px', textAlign: "center" }} />
-                                </div>
-                                <div style={{ width: '100%' }}>
-                                    <button type="submit" className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', borderRadius: '25px' }} onClick={login.LoginPaciente}>Iniciar sesion</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </Container>
-        </>
-    )
-}
 
-login.LoginMedico = async (ctx) => {
-    ctx.preventDefault();
-    //Trae informacion del formulario del medico
-    const formMedico = document.getElementById('formularioMedico')
-    const datos = new FormData(formMedico)
-    login.state.username = datos.get('textMedico')
-    login.state.password = datos.get('textPassMedico')
-    
-    //Utiliza la funcion Login para encontrar al usuario
-    const res = await login.Login()
-    
-    if(res.length!=0){}
-    else
-        alert("Datos incorrectos")
+function Registro (props) {
 
-    //Va a buscar la informacion del medico
-    const user = await fetch('http://localhost:3001/medico/info/'+ res.id, {
-        method: 'GET',
-        headers: {
-            'access-token': res.token,
-        },
-        cache: 'no-cache'
-    }).then(function (response) {
-        return response.json();
-    }).catch(function (err) {
-        console.error(err)
-    });
+  const [tipo, setTipo ] = useState('paciente');
+  const {register, errors, handleSubmit} = useForm();
+  const [alerta, setAlerta] = useState('')
 
-    if(user.length!=0){
-        alert("Inicio de sesion de "+res.username+" con numero de cedula "+user[0].cedula)
-    }else{
-        alert("El usuario no es un medico")
+  useEffect(() =>  {
+    if (localStorage.getItem('token') != null) {
+        Router.push('/');
     }
-}
+  }, []);
 
-login.LoginPaciente = async (ctx) => {
-    ctx.preventDefault();
-    //Trae informacion dle formulario del paciente
-    const formMedico = document.getElementById('formularioPaciente')
-    const datos = new FormData(formMedico)
-    login.state.username = datos.get('textPaciente')
-    login.state.password = datos.get('textPassPaciente')
+
+  const procesarFormulario = (data, e) => {
+    data.tipo = tipo;
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    };
+
+    fetch(env.URL_SERVER+'/login', requestOptions).
+    then(async response => {
+      const data = await response.json();
+      if (data.code) {
+        console.log(data)
+        setAlerta(<div class="alert alert-danger" role="alert">
+                  {data.message}
+                  </div>)
+        localStorage.clear();
+      }else{
+        console.log("Usuario logueado")  
+        console.log(data)
+        localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("roles", JSON.stringify(data.roles));
+        localStorage.setItem("usuario", JSON.stringify(data)); 
+        Router.push('/');
+      }
+      
+      
+    })
+    .catch(error => {
+      this.setState({ errorMessage: error.toString() });
+      console.error('Servidor apagado!', error);
+    });
     
-    //Utiliza la funcion Login para encontrar al usuario
-    const res = await login.Login()
+  }
 
-    //Va a buscar la informacion del paciente
-    const user = await fetch('http://localhost:3001/paciente/info/'+ res.id, {
-        method: 'GET',
-        headers: {
-            'access-token': res.token,
-        },
-        cache: 'no-cache'
-    }).then(function (response) {
-        return response.json();
-    }).catch(function (err) {
-        console.error(err)
-    });
-
-    if(user.length!=0){
-        alert("Inicio de sesion de "+res.username+" con telefono "+user[0].telefono)
-    }else{
-        alert("El usuario no es un paciente")
-    }
+  return ( 
+      <div>
+        <Head>
+        <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/materia/bootstrap.min.css" rel="stylesheet" integrity="sha384-uKLgCN8wZ+yo4RygxUNFhjywpL/l065dVTzvLuxys7LAIMmhZoLWb/1yP6+mF925" crossOrigin="anonymous" />
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+        <title>Iniciar sesion</title>
+      </Head>
+      <div className="signUp">
+        <Fragment>
+        <div className="page-content">
+          <div className="form-v5-content">
+              <form className="form-detail" method='post' id='form-registrar' onSubmit={handleSubmit(procesarFormulario)} >
+                <h2>Iniciar Sesion</h2>
+                  <div className="form-row">
+                    <input   
+                      type="text"
+                      name="username"
+                      id="username"
+                      className="input-text"
+                      placeholder="Username"
+                      ref={register}
+                    />
+                    <i className="fas fa-smile" />
+                  </div>
+                  <div className="form-row">
+                    <input
+                      type="password"
+                      name="password"
+                      id="password"
+                      className="input-text"
+                      placeholder="Password"
+                      required
+                      ref={register}
+                    />
+                    <i className="fas fa-lock" />
+                  </div>
+                  {alerta}
+                  <div className="form-row-last">
+                    <input
+                      type="submit"
+                      name="register"
+                      className="register"
+                      value="Aceptar"
+                    />  
+                  </div> 
+                  <div className="form-data">
+                    <Link href="/signup">
+                      <a className="nav-link">
+                          Crea una cuenta
+                      </a>
+                    </Link>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </Fragment>
+        </div>  
+      </div>
+  )
 }
 
-login.Login = async () => {
-    const res = await fetch('http://localhost:3001/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': "application/json",
-        },
-        body: JSON.stringify({
-            username: login.state.username,
-            password: login.state.password
-        }),
-        cache: 'no-cache'
-    }).then(function (response) {
-        return response.json();
-    }).catch(function (err) {
-        console.error(err)
-    });
-    return res
-}
 
-login.state = {
-    username: '',
-    password: '',
-    tipo: ''
-}
-
-export default login;
+export default Registro

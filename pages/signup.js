@@ -1,7 +1,7 @@
 import env from '../env.json'
 import Head from 'next/head';
 import Link from 'next/link';
-import React, {Fragment, useState} from 'react'
+import React, {Fragment, useState, useEffect} from 'react'
 import { useForm } from 'react-hook-form'
 import Router from 'next/router';
 
@@ -12,6 +12,12 @@ function Registro (props) {
   const [tipo, setTipo ] = useState('paciente');
 
   const {register, errors, handleSubmit} = useForm();
+
+  useEffect(() =>  {
+    if (localStorage.getItem('token') != null) {
+        Router.push('/');
+    }
+  }, []);
 
 
   const procesarFormulario = (data, e) => {
@@ -32,7 +38,10 @@ function Registro (props) {
         localStorage.clear();
       }else{
         console.log("Usuario registrado")  
+        localStorage.setItem("token", JSON.stringify(data.token));
+        localStorage.setItem("roles", JSON.stringify(data.roles));
         localStorage.setItem("usuario", JSON.stringify(data));
+        
         Router.push('/');
       }
       
@@ -62,20 +71,18 @@ function Registro (props) {
               <form className="form-detail" method='post' id='form-registrar' onSubmit={handleSubmit(procesarFormulario)} >
                 <h2>Registra una cuenta</h2>
                 <div className="form-row">
-                    <label htmlFor="name">Nombre</label>
                     <input
                       type="text"
                       name="name"
                       id="name"
                       className="input-text"
-                      placeholder="Your Name"
+                      placeholder="Nombre"
                       required
                       ref={register}
                     />
                     <i className="fas fa-user" />
                 </div>
                   <div className="form-row">
-                    <label htmlFor="username">Username</label>
                     <input   
                       type="text"
                       name="username"
@@ -87,13 +94,12 @@ function Registro (props) {
                     <i className="fas fa-smile" />
                   </div>
                   <div className="form-row">
-                    <label htmlFor="email">Email</label>
                     <input
                       type="text"
                       name="email"
                       id="email"
                       className="input-text"
-                      placeholder="Your Email"
+                      placeholder="Email"
                       required
                       pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"
                       ref={register}
@@ -101,13 +107,12 @@ function Registro (props) {
                     <i className="fas fa-envelope" />
                   </div>
                   <div className="form-row">
-                    <label htmlFor="password">Password</label>
                     <input
                       type="password"
                       name="password"
                       id="password"
                       className="input-text"
-                      placeholder="Your Password"
+                      placeholder="Password"
                       required
                       ref={register}
                     />
@@ -134,7 +139,7 @@ function Registro (props) {
                       type="submit"
                       name="register"
                       className="register"
-                      defaultValue="Register"
+                      value="Registrar"
                     />
                   </div>
                   <div className="form-row-last">

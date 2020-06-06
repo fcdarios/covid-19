@@ -1,61 +1,84 @@
 import Link from "next/link";
-const Navigation = () => {
+import {useEffect, useState} from 'react'
+const Navigation = (props) => {
+
+
+  let li; 
+  if (!props.logged) {
+    li =  <><li className="nav-item">
+            <Link href="/login">
+              <a className="nav-link">
+                <span>Iniciar sesion</span>
+              </a>
+            </Link>
+          </li>
+          <li className="nav-item">
+          <Link href="/signup">
+            <a className="nav-link">
+              <span>Registrarse</span>
+            </a>
+          </Link>
+        </li></>;
+  } else {
+    li =  <li className="nav-item ">
+            <div class="nav-link dropdown">
+              <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {props.usuario.name}
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <Link href="/">
+                  <a className="dropdown-item">
+                    <span>Perfil</span>
+                  </a>
+                </Link>
+                <Link href="/">
+                  <a className="dropdown-item">
+                    <span>Settings</span>
+                  </a>
+                </Link>
+                <Link href="/logout">
+                  <a className="dropdown-item">
+                    <span>LogOut</span>
+                  </a>
+                </Link>
+              </div>
+            </div>
+          </li>;
+  }
+
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary text-white">
-      <Link href="/">
-            <a className="navbar-brand" >Home</a>
-      </Link>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon" />
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          <li className="nav-item">
-                <Link href="/about">
-                    <a className="nav-link">
-                        About
-                    </a>
-                </Link>
-          </li>
-          <li className="nav-item">
-                <Link href="/contact">
-                    <a className="nav-link">
-                        Contact
-                    </a>
-                </Link>
-          </li>
-          <li className="nav-item">
-              <Link href="/user">
-                  <a className="nav-link">
-                      Usuarios
-                  </a>
-              </Link>
-          </li>
-          <li className="nav-item">
-              <Link href="/login">
-                  <a className="nav-link">
-                      Login
-                  </a>
-              </Link>
-          </li>
-          <li className="nav-item">
-              <Link href="/signup">
-                  <a className="nav-link">
-                      Registrarse
-                  </a>
-              </Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <div className="NavigationBar">
+      <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
+        <div className="container">
+          <Link href="/">
+                <a className="navbar-brand" >Covid-19<span>.</span></a>
+          </Link>
+          <button className="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span className="oi oi-menu" /> Menu
+          </button>
+          <div className="collapse navbar-collapse" id="ftco-nav">
+            <ul className="navbar-nav nav ml-auto">
+              <li className="nav-item">
+                  <Link href="/about">
+                      <a className="nav-link">
+                        <span>About</span>
+                      </a>
+                  </Link>
+              </li>
+              <li className="nav-item">
+                  <Link href="/contact">
+                      <a className="nav-link">
+                        <span>Contact</span>
+                      </a>
+                  </Link>
+              </li>    
+              {li}
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import Head from 'next/head';
-import Container from '../components/Container';
-import Navigation from '../components/Navigation';
+import Container from '../../components/Container';
+import Navigation from '../../components/Navigation';
 import {useEffect, useState} from 'react'
 const Index = () => {
 
@@ -23,14 +23,14 @@ const Index = () => {
   }else{
     html = 
     <Container usuario={user} logged={logged} >
-        <h1>Index</h1>
+        <h1>Index Perfil</h1>
     </Container>
   }
 
   return ( 
     <div>
       <Head>
-        <title>Home</title>
+        <title>Index Perfil</title>
       </Head>
       {html}
     </div>
