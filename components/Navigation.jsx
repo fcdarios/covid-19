@@ -32,7 +32,7 @@ const Navigation = (props) => {
                 {props.usuario.name}
               </button>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <Link href={'/perfil/'+props.usuario.username}  >
+                <Link href={'/'+rol+''}  >
                   <a className="dropdown-item">
                     <span>Perfil</span>
                   </a>
