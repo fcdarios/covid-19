@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Main from '../components/Main';
 import Container from '../components/Container';
 import {useEffect, useState} from 'react'
 const About = () => {
@@ -27,12 +27,9 @@ const About = () => {
   }
 
   return ( 
-    <div>
-      <Head>
-        <title>About</title>
-      </Head>
+    <Main title='About' >
       {html}
-    </div>
+    </Main>
   )
 }
 

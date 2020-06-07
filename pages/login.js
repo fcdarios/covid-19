@@ -1,14 +1,13 @@
 import env from '../env.json'
-import Head from 'next/head';
+import Main from '../components/Main';
 import Link from 'next/link';
-import Container from '../components/Container';
 import React, {Fragment, useState, useEffect} from 'react'
 import { useForm } from 'react-hook-form'
 import Router from 'next/router';
 
 
 
-function Registro (props) {
+function Login (props) {
 
   const [tipo, setTipo ] = useState('paciente');
   const {register, errors, handleSubmit} = useForm();
@@ -57,12 +56,7 @@ function Registro (props) {
   }
 
   return ( 
-      <div>
-        <Head>
-        <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/materia/bootstrap.min.css" rel="stylesheet" integrity="sha384-uKLgCN8wZ+yo4RygxUNFhjywpL/l065dVTzvLuxys7LAIMmhZoLWb/1yP6+mF925" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
-        <title>Iniciar sesion</title>
-      </Head>
+    <Main title='login'>
       <div className="signUp">
         <Fragment>
         <div className="page-content">
@@ -112,10 +106,10 @@ function Registro (props) {
               </div>
             </div>
           </Fragment>
-        </div>  
-      </div>
+        </div>
+    </Main>
   )
 }
 
 
-export default Registro
+export default Login

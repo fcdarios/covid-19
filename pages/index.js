@@ -1,6 +1,5 @@
-import Head from 'next/head';
+import Main from '../components/Main';
 import Container from '../components/Container';
-import Navigation from '../components/Navigation';
 import {useEffect, useState} from 'react'
 const Index = () => {
 
@@ -28,12 +27,9 @@ const Index = () => {
   }
 
   return ( 
-    <div>
-      <Head>
-        <title>Home</title>
-      </Head>
+    <Main title='Home'>
       {html}
-    </div>
+    </Main>
   )
 }
 

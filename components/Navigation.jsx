@@ -20,13 +20,14 @@ const Navigation = (props) => {
           </Link>
         </li></>;
   } else {
+
     li =  <li className="nav-item ">
-            <div class="nav-link dropdown">
-              <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div className="nav-link dropdown">
+              <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {props.usuario.name}
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <Link href="/">
+              <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <Link href={'/perfil/'+props.usuario.username}  >
                   <a className="dropdown-item">
                     <span>Perfil</span>
                   </a>

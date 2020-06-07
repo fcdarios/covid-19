@@ -1,5 +1,5 @@
 import env from '../env.json'
-import Head from 'next/head';
+import Main from '../components/Main';
 import Link from 'next/link';
 import React, {Fragment, useState, useEffect} from 'react'
 import { useForm } from 'react-hook-form'
@@ -57,13 +57,7 @@ function Registro (props) {
   
 
   return ( 
-    <div className="">
-      <Head>
-        <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.0/materia/bootstrap.min.css" rel="stylesheet" integrity="sha384-uKLgCN8wZ+yo4RygxUNFhjywpL/l065dVTzvLuxys7LAIMmhZoLWb/1yP6+mF925" crossOrigin="anonymous" />
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
-
-        <title>Registrar</title>
-      </Head>
+    <Main title='SignUp'>
       <div className="signUp">
         <Fragment>
         <div className="page-content">
@@ -154,7 +148,7 @@ function Registro (props) {
             </div>
           </Fragment>
         </div>
-    </div>
+    </Main>
   )
 }
 

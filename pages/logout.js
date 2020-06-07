@@ -1,5 +1,5 @@
 import env from '../env.json'
-import Container from '../components/Container';
+import Main from '../components/Main';
 import { useState, useEffect} from 'react'
 import Router from 'next/router';
 
@@ -16,10 +16,10 @@ function Registro (props) {
 
 
   return ( 
-    <div>
-      <Container>
-      </Container>
-    </div>
+    
+    <Main title='Saliendo...'>
+    </Main>
+  
   )
 }
 
