@@ -1,7 +1,12 @@
 import Link from "next/link";
+import { getRol } from '../src/roles'
 import {useEffect, useState} from 'react'
 const Navigation = (props) => {
+  const [rol, setRol] = useState('paciente');
 
+  useEffect(() => {
+    setRol(JSON.parse(getRol()));
+  },[])
 
   let li; 
   if (!props.logged) {

@@ -22,7 +22,7 @@ const Index = () => {
   }else{
     html = 
     <Container usuario={user} logged={logged} >
-        <h1>Perfil</h1>
+        <h1>Paciente</h1>
     </Container>
   }
 
