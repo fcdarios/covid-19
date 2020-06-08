@@ -3,6 +3,7 @@ import { getRol } from '../src/roles'
 import {useEffect, useState} from 'react'
 const Navigation = (props) => {
   const [rol, setRol] = useState('paciente');
+  const [usuario, setUsuario] = useState(props.usuario);
 
   useEffect(() => {
     setRol(JSON.parse(getRol()));
@@ -29,7 +30,7 @@ const Navigation = (props) => {
     li =  <li className="nav-item ">
             <div className="nav-link dropdown">
               <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {props.usuario.name}
+                {usuario.name} 
               </button>
               <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <Link href={'/'+rol+''}  >

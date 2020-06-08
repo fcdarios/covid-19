@@ -5,8 +5,6 @@ import React, {Fragment, useState, useEffect} from 'react'
 import { useForm } from 'react-hook-form'
 import Router from 'next/router';
 
-
-
 function Registro (props) {
 
   const [tipo, setTipo ] = useState('paciente');

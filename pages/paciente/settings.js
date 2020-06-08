@@ -2,9 +2,6 @@ import env from '../../env.json'
 import Main from '../../components/Main';
 import Container from '../../components/Container';
 import BotonPaciente from '../../components/paciente/BotonPaciente';
-
-import DatosUsuario from '../../components/paciente/DatosUsuario';
-import DatosPaciente from '../../components/paciente/DatosPaciente';
 import EditarPaciente from '../../components/paciente/EditarPaciente';
 import {getToken} from '../../src/token'
 
@@ -17,8 +14,6 @@ const Index = () => {
   const [paciente, setPaciente] = useState(null);
   const [logged, setLogged] = useState(false);
   
-
-
 
   useEffect(() =>  {
     async function data(){
@@ -43,6 +38,7 @@ const Index = () => {
                                 setPaciente(data);   
                                 setLogged(true)
                                 setLoading(false)
+                                
                           })
                           .catch(error => {
                                 this.setState({ errorMessage: error.toString() });
@@ -60,6 +56,7 @@ const Index = () => {
     }
 
     data();
+    
   }, []);
 
 
@@ -71,31 +68,13 @@ const Index = () => {
     <Container usuario={usuario} logged={logged}>
       <div className="paciente">
         <div className="row">
-          <div className='col-8'>
-            <div className='row'>
-              <div className='col-6'>
-                <BotonPaciente  title='Nueva Consulta' ruta='/nueva-consulta' />       
-              </div>
-              <div className='col-6'>
-                <BotonPaciente  title='Buscar Doctor' ruta='/buscar-doctor'/>       
-              </div>
-              <div className='col-6'>
-                <BotonPaciente  title='Revisar recetas' ruta='/revisar-recetas'/>       
-              </div>
-              <div className='col-6'>
-                <BotonPaciente  title='Ver consultas' ruta='/ver-consultas' />       
-              </div>
-              <div className='col-6'>
-                <BotonPaciente  title='Pagos realizados' ruta='/pagos'/>       
-              </div>
-              <div className='col-6'>
-                <BotonPaciente  title='Compras' ruta='/compras'/>       
-              </div>
-            </div>
+            <div className="col-12 d-flex justify-content-center">
+                <h2>Datos paciente</h2>  
+            </div>  
+          <div className='col-6'>
+            <EditarPaciente paciente={paciente} />
           </div>
-          <div className='datos col-4'>
-            <DatosPaciente paciente={paciente} />
-          </div>
+         
         </div>
       </div>
     </Container>

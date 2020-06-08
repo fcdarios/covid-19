@@ -71,30 +71,23 @@ const Index = () => {
     <Container usuario={usuario} logged={logged}>
       <div className="paciente">
         <div className="row">
-          <div className='col-8'>
-            <div className='row'>
-              <div className='col-6'>
-                <BotonPaciente  title='Nueva Consulta' ruta='/nueva-consulta' />       
-              </div>
-              <div className='col-6'>
-                <BotonPaciente  title='Buscar Doctor' ruta='/buscar-doctor'/>       
-              </div>
-              <div className='col-6'>
-                <BotonPaciente  title='Revisar recetas' ruta='/revisar-recetas'/>       
-              </div>
-              <div className='col-6'>
-                <BotonPaciente  title='Ver consultas' ruta='/ver-consultas' />       
-              </div>
-              <div className='col-6'>
-                <BotonPaciente  title='Pagos realizados' ruta='/pagos'/>       
-              </div>
-              <div className='col-6'>
-                <BotonPaciente  title='Compras' ruta='/compras'/>       
-              </div>
-            </div>
+          <div className='col-3'>
+            <BotonPaciente  title='Nueva Consulta' ruta='' />       
           </div>
-          <div className='datos col-4'>
-            <DatosPaciente paciente={paciente} />
+          <div className='col-3'>
+            <BotonPaciente  title='Buscar Doctor' />       
+          </div>
+          <div className='col-3'>
+            <BotonPaciente  title='Revisar recetas' />       
+          </div>
+          <div className='col-3'>
+            <BotonPaciente  title='Ver consultas' />       
+          </div>
+          <div className='col-3'>
+            <BotonPaciente  title='Pagos realizados'/>       
+          </div>
+          <div className='col-3'>
+            <BotonPaciente  title='Compras'/>       
           </div>
         </div>
       </div>

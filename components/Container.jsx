@@ -6,6 +6,7 @@ const Container = (props) => {
         <div>
             <Navigation usuario={props.usuario} logged={props.logged}/>
             <div className="container p-3">
+                
                 {props.children}
             </div>
         </div>
