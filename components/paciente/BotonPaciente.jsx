@@ -4,10 +4,8 @@ const DatosPaciente = (props) => {
   
   return (
     <div className="botones">
-        <a onClick={()=> {Router.push('/paciente'+props.ruta)}}>
-            <div className="card">
-                    <h4>{props.title}</h4>
-            </div>
+        <a className="btn" onClick={()=> {Router.push('/paciente'+props.ruta)}}>
+            <h4>{props.title}</h4>
         </a>
     </div>
   );
