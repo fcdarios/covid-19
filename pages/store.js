@@ -1,6 +1,10 @@
 import Head from 'next/head';
 import Container from '../components/Container';
-const Store = () => {
+import fetch from "isomorphic-unfetch";
+import Products from '../components/Products';
+
+const Store = (props) => {
+  console.log(props)
   return ( 
     <div>
       <Head>
@@ -8,9 +12,24 @@ const Store = () => {
       </Head>
       <Container>
          <h1>Farmacia ITC</h1>
+         <Products products = {props.products}/>
       </Container>
     </div>
   )
 }
+Store.getInitialProps = async (ctx) => {
+  const res = await fetch("https://dev-covid-19-itc.pantheonsite.io/wp-json/wc/v3/products",
+  {
+    method: "GET",
+    credentials: 'include',
+    headers: {
+      Authorization: 'Basic '+window.btoa("ck_0e68cc1e81d9a93bcd6d1990c1bac40822e6d233:cs_2137798b89fb10209a34d7fe189f7f8714422e5d"),
+    }
+  });
+  const data = await res.json();
+  return{
+    products: data
+  }
+};
 
 export default Store
