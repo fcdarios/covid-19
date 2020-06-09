@@ -8,10 +8,22 @@ const Store = (props) => {
   return ( 
     <div>
       <Head>
-        <title>Tienda</title>
+      <title>Tienda</title>
       </Head>
       <Container>
+        <div className="container mb-5 mt-6">
+          <div className="row">
+            <div className="col-md-8">
          <h1>Farmacia ITC</h1>
+            </div>
+            <div className="col-md-4">
+         <div className="form-inline my-2 my-lg-0">
+          <input className="form-control mr-sm-2" type="text" placeholder="Search" />
+          <button className="btn btn-secondary my-2 my-sm-0" >Search</button>
+        </div>  
+            </div>
+          </div>
+        </div>
          <Products products = {props.products}/>
       </Container>
     </div>

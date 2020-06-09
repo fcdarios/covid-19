@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import fetch from "isomorphic-unfetch";
-
+import Head from 'next/head';
 import Container from "../../components/Container";
 
 const Product = ({ product }) => {
@@ -8,6 +8,10 @@ const Product = ({ product }) => {
   const { id } = router.query;
 
   return (
+    <div>
+    <Head>
+      <title>{product.name}</title>
+    </Head>
     <Container>
       <div className="row">
         <div className="col-md-6 offset-md-3">
@@ -27,11 +31,13 @@ const Product = ({ product }) => {
               </h3>
               <h4>Precio: {product.price}</h4>
               <p>Descripcion: {product.description} </p>
+            <button className="btn btn-success btn-sm">Add to cart</button>
             </div>
           </div>
         </div>
       </div>
     </Container>
+    </div>
   );
 };
 
