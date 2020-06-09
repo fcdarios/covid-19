@@ -26,7 +26,6 @@ const Navigation = (props) => {
         </Link>
       </li></>;
   } else {
-
     li = <li className="nav-item ">
       <div className="nav-link dropdown">
         <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -76,8 +75,6 @@ const Navigation = (props) => {
         </li></>;
     }
   }
-
-
   return (
     <div className="NavigationBar">
       <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
@@ -104,6 +101,13 @@ const Navigation = (props) => {
                   </a>
                 </Link>
               </li>
+                <li className="nav-item">
+                    <Link href="/store">
+                        <a className="nav-link">
+                            Tienda
+                        </a>
+                    </Link>
+                </li>
               {liMenu}
               {li}
             </ul>
@@ -113,5 +117,4 @@ const Navigation = (props) => {
     </div>
   );
 };
-
 export default Navigation;

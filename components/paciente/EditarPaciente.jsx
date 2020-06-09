@@ -72,6 +72,15 @@ const EditarPaciente = (props) => {
               <input type="date" defaultValue={paciente.nacimiento} name="nacimiento" id="nacimiento" className="input" placeholder="Nacimiento"  ref={register} /> 
           </div>
           <div className='col-6'>
+              <input type="text" defaultValue={paciente.alergias} name="alergias" id="alergias" className="input" placeholder="Alergias"  ref={register} /> 
+          </div>
+          <div className='col-6'>
+              <input type="text" defaultValue={paciente.cirugias} name="cirugias" id="cirugias" className="input" placeholder="Cirugias"  ref={register} /> 
+          </div>
+          <div className='col-6'>
+              <input type="text" defaultValue={paciente.enf_cronicas} name="enf_cronicas" id="enf_cronicas" className="input" placeholder="Enfermedades cronicas"  ref={register} /> 
+          </div>
+          <div className='col-6'>
               <div className="label">
                 Caso covid: {paciente.caso_covid19}
               </div>
