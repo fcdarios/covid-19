@@ -100,14 +100,14 @@ const Navigation = (props) => {
                     <span>Contact</span>
                   </a>
                 </Link>
-                <li className="nav-item">
+              </li>
+              <li className="nav-item">
                     <Link href="/store">
                         <a className="nav-link">
                             Tienda
                         </a>
                     </Link>
                 </li>
-              </li>
               {liMenu}
               {li}
             </ul>
