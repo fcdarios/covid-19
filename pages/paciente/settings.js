@@ -1,8 +1,9 @@
-import env from '../../env.json'
+import {getPaciente, getUsuario} from '../../src/data'
 import Main from '../../components/Main';
 import Container from '../../components/Container';
-import BotonPaciente from '../../components/paciente/BotonPaciente';
+import DatosUsuario from '../../components/paciente/DatosUsuario';
 import EditarPaciente from '../../components/paciente/EditarPaciente';
+import BotonPaciente from '../../components/paciente/BotonPaciente';
 import {getToken} from '../../src/token'
 
 
@@ -21,43 +22,21 @@ const Index = () => {
         Router.push('/');
         console.log("Sin token");
         return;
-      }
-      try {
-            let token = JSON.parse(getToken());
-            const requestOptions = {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json', 'token' : token}
-            };
-            await fetch(env.URL_SERVER+'/user/perfil', requestOptions).
-                then(async response => {
-                      const data = await response.json();
-                      setUsuario(data);
-                      await fetch(env.URL_SERVER+'/paciente/perfil', requestOptions).
-                          then(async response => {
-                                const data = await response.json();
-                                setPaciente(data);   
-                                setLogged(true)
-                                setLoading(false)
-                                
-                          })
-                          .catch(error => {
-                                this.setState({ errorMessage: error.toString() });
-                                console.error('Servidor apagado!', error);
-                      });
-                })
-                .catch(error => {
-                      this.setState({ errorMessage: error.toString() });
-                      console.error('Servidor apagado!', error);
-            });
-              
-      } catch (error) {
-            console.log('==========='+error)
+      }else {
+        let u = await getUsuario();
+        let p = await getPaciente();
+        setPaciente(JSON.parse(p))
+        setUsuario(JSON.parse(u))
+        if(usuario && paciente){
+          setLogged(true)
+          setLoading(false)
+        }else {
+          setLoading(false)
+        }
       }
     }
-
     data();
-    
-  }, []);
+  },[loading]);
 
 
   let html
@@ -66,15 +45,41 @@ const Index = () => {
   }else{
     html = 
     <Container usuario={usuario} logged={logged}>
-      <div className="paciente">
+      <div className="pacienteSettings">
         <div className="row">
-            <div className="col-12 d-flex justify-content-center">
-                <h2>Datos paciente</h2>  
+            <div className="row boxBotones">
+                    <div className='col'>
+                        <BotonPaciente  title='Perfil' ruta='/'/>       
+                    </div>
+                    <div className='col'>
+                        <BotonPaciente  title='Nueva Consulta' ruta='/nueva-consulta' />       
+                    </div>
+                    <div className='col'>
+                        <BotonPaciente  title='Buscar Doctor' ruta='/buscar-doctor'/>       
+                    </div>
+                    <div className='col'>
+                        <BotonPaciente  title='Revisar recetas' ruta='/revisar-recetas'/>       
+                    </div>
+                    <div className='col'>
+                        <BotonPaciente  title='Ver consultas' ruta='/ver-consultas' />       
+                    </div>
+                    <div className='col'>
+                        <BotonPaciente  title='Pagos realizados' ruta='/pagos'/>       
+                    </div>
+                    <div className='col'>
+                        <BotonPaciente  title='Compras' ruta='/compras'/>       
+                    </div>
+            </div>
+
+            <div className='col-5'>
+                <DatosUsuario usuario={usuario} />
+                <EditarPaciente paciente={paciente} />
+            </div>
+            <div className='col-7'>
+                
             </div>  
-          <div className='col-6'>
-            <EditarPaciente paciente={paciente} />
-          </div>
-         
+           
+            
         </div>
       </div>
     </Container>

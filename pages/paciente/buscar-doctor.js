@@ -1,16 +1,15 @@
 import env from '../../env.json'
+import {getToken} from '../../src/token'
+import {getPaciente, getUsuario} from '../../src/data'
 import Main from '../../components/Main';
 import Container from '../../components/Container';
 import BotonPaciente from '../../components/paciente/BotonPaciente';
-
-import DatosUsuario from '../../components/paciente/DatosUsuario';
 import DatosPaciente from '../../components/paciente/DatosPaciente';
-import EditarPaciente from '../../components/paciente/EditarPaciente';
-import {getToken} from '../../src/token'
+
 
 
 import {useEffect, useState} from 'react'
-const Index = () => {
+const BuscarDoctor = () => {
 
   const [loading, setLoading] = useState(true);
   const [usuario, setUsuario] = useState(null);
@@ -26,41 +25,21 @@ const Index = () => {
         Router.push('/');
         console.log("Sin token");
         return;
-      }
-      try {
-            let token = JSON.parse(getToken());
-            const requestOptions = {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json', 'token' : token}
-            };
-            await fetch(env.URL_SERVER+'/user/perfil', requestOptions).
-                then(async response => {
-                      const data = await response.json();
-                      setUsuario(data);
-                      await fetch(env.URL_SERVER+'/paciente/perfil', requestOptions).
-                          then(async response => {
-                                const data = await response.json();
-                                setPaciente(data);   
-                                setLogged(true)
-                                setLoading(false)
-                          })
-                          .catch(error => {
-                                this.setState({ errorMessage: error.toString() });
-                                console.error('Servidor apagado!', error);
-                      });
-                })
-                .catch(error => {
-                      this.setState({ errorMessage: error.toString() });
-                      console.error('Servidor apagado!', error);
-            });
-              
-      } catch (error) {
-            console.log('==========='+error)
+      }else {
+        let u = await getUsuario();
+        let p = await getPaciente();
+        setPaciente(JSON.parse(p))
+        setUsuario(JSON.parse(u))
+        if(usuario && paciente){
+          setLogged(true)
+          setLoading(false)
+        }else {
+          setLoading(false)
+        }
       }
     }
-
     data();
-  }, []);
+  },[loading]);
 
 
   let html
@@ -71,23 +50,30 @@ const Index = () => {
     <Container usuario={usuario} logged={logged}>
       <div className="paciente">
         <div className="row">
-          <div className='col-3'>
-            <BotonPaciente  title='Nueva Consulta' ruta='' />       
+          <div className='col-8'>
+            <div className='row boxBotones'>
+              <div className='col-4'>
+                <BotonPaciente  title='Nueva Consulta' ruta='/nueva-consulta' />       
+              </div>
+              <div className='col-4'>
+                <BotonPaciente  title='Buscar Doctor' ruta='/buscar-doctor'/>       
+              </div>
+              <div className='col-4'>
+                <BotonPaciente  title='Revisar recetas' ruta='/revisar-recetas'/>       
+              </div>
+              <div className='col-4'>
+                <BotonPaciente  title='Ver consultas' ruta='/ver-consultas' />       
+              </div>
+              <div className='col-4'>
+                <BotonPaciente  title='Pagos realizados' ruta='/pagos'/>       
+              </div>
+              <div className='col-4'>
+                <BotonPaciente  title='Compras' ruta='/compras'/>       
+              </div>
+            </div>
           </div>
-          <div className='col-3'>
-            <BotonPaciente  title='Buscar Doctor' />       
-          </div>
-          <div className='col-3'>
-            <BotonPaciente  title='Revisar recetas' />       
-          </div>
-          <div className='col-3'>
-            <BotonPaciente  title='Ver consultas' />       
-          </div>
-          <div className='col-3'>
-            <BotonPaciente  title='Pagos realizados'/>       
-          </div>
-          <div className='col-3'>
-            <BotonPaciente  title='Compras'/>       
+          <div className='datos col-4'>
+            <DatosPaciente paciente={paciente} />
           </div>
         </div>
       </div>
@@ -101,5 +87,5 @@ const Index = () => {
   )
 }
 
-export default Index
+export default BuscarDoctor
 

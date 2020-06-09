@@ -17,7 +17,8 @@ export async function getPaciente() {
                 then(async response => {
                     const data = await response.json();
                     localStorage.setItem(paciente_key, JSON.stringify(data));
-                    return data
+                    let paciente =  localStorage.getItem(paciente_key);
+                    return JSON.parse(paciente);
                 })
                 .catch(error => {
                     this.setState({ errorMessage: error.toString() });
@@ -45,7 +46,7 @@ export async function getUsuario() {
                 then(async response => {
                     const data = await response.json();
                     localStorage.setItem(usuario_key, JSON.stringify(data));
-                    return data
+                    return localStorage.getItem(usuario_key);
                 })
                 .catch(error => {
                     this.setState({ errorMessage: error.toString() });

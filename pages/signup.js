@@ -40,6 +40,13 @@ function Registro (props) {
         localStorage.setItem("roles", JSON.stringify(data.roles));
         localStorage.setItem("usuario", JSON.stringify(data));
         
+        if (data.medico) {
+          localStorage.setItem("medico", JSON.stringify(data.medico));
+        }
+        else {
+          localStorage.setItem("paciente", JSON.stringify(data.paciente));
+        }
+        
         Router.push('/');
       }
       

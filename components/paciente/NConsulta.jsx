@@ -35,7 +35,7 @@ const NConsulta = (props) => {
         <form className="form" method='post' id='form-consulta' onSubmit={handleSubmit(procesarFormulario)} >
             <div className='row'>
               <div className='row'>
-
+                
                 
               </div>
             </div>

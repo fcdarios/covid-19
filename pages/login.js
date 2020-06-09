@@ -33,7 +33,7 @@ function Login (props) {
       const data = await response.json();
       if (data.code) {
         console.log(data)
-        setAlerta(<div class="alert alert-danger" role="alert">
+        setAlerta(<div className="alert alert-danger" role="alert">
                   {data.message}
                   </div>)
         localStorage.clear();
@@ -43,6 +43,14 @@ function Login (props) {
         localStorage.setItem("token", JSON.stringify(data.token));
         localStorage.setItem("roles", JSON.stringify(data.roles));
         localStorage.setItem("usuario", JSON.stringify(data)); 
+
+        if (data.medico) {
+          localStorage.setItem("medico", JSON.stringify(data.medico));
+        }
+        else {
+          localStorage.setItem("paciente", JSON.stringify(data.paciente));
+        }
+
         Router.push('/');
       }
       
@@ -113,3 +121,7 @@ function Login (props) {
 
 
 export default Login
+
+async function get(params) {
+  
+}
