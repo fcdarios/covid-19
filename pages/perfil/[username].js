@@ -1,14 +1,21 @@
 import env from '../../env.json'
 import {getToken, setToken} from '../../src/token'
 import { useRouter } from 'next/router'
-import Router from 'next/router';
+
 import Main from '../../components/Main';
 import Container from '../../components/Container';
 import {useEffect, useState} from 'react'
 
+
+import Router from 'next/router';
 const Username = (props) => {
+
      const router = useRouter()
      const { username } = router.query
+
+
+
+
      const [loading, setLoading] = useState(true);
      const user= {};
      
