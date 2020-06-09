@@ -54,21 +54,21 @@ const Navigation = (props) => {
     if (rol == 'medico') {
       liMenu = <>
         <li className="nav-item">
-          <Link href="/Services">
+          <Link href="/medico/Services">
             <a className="nav-link">
               <span>Services</span>
             </a>
           </Link>
         </li>
         <li className="nav-item">
-          <Link href="/">
+          <Link href="/medico/Consultations">
             <a className="nav-link">
               <span>Consultations</span>
             </a>
           </Link>
         </li>
         <li className="nav-item">
-          <Link href="/Invoices">
+          <Link href="/medico/Invoices">
             <a className="nav-link">
               <span>invoices</span>
             </a>
@@ -83,7 +83,7 @@ const Navigation = (props) => {
       <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
         <div className="container">
           <Link href="/">
-            <a className="navbar-brand" >Covid-19<span>.</span></a>
+            <a className="navbar-brand" >Covid-19</a>
           </Link>
           <button className="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
             <span className="oi oi-menu" /> Menu

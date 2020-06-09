@@ -100,7 +100,7 @@ function Login (props) {
                       type="submit"
                       name="register"
                       className="register"
-                      value="Aceptar"
+                      value="Iniciar sesión"
                     />  
                   </div> 
                   <div className="form-data">
