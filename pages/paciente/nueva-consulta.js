@@ -5,6 +5,7 @@ import Main from '../../components/Main';
 import Container from '../../components/Container';
 import BotonPaciente from '../../components/paciente/BotonPaciente';
 import NConsulta from '../../components/paciente/NConsulta';
+import Loading from '../../components/Loading'
 
 
 
@@ -81,7 +82,7 @@ const NuevaConsulta = () => {
 
   let html
   if (loading) {
-    html = <div></div>
+    html = <div><Loading/></div>
   }else{
     html = 
     <Container usuario={usuario} logged={logged}>

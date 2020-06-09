@@ -5,7 +5,7 @@ import Main from '../../components/Main';
 import Container from '../../components/Container';
 import BotonPaciente from '../../components/paciente/BotonPaciente';
 import DatosPaciente from '../../components/paciente/DatosPaciente';
-
+import Loading from '../../components/Loading'
 
 
 import {useEffect, useState} from 'react'
@@ -45,7 +45,7 @@ const Index = () => {
   
   let html
   if (loading) {
-    html = <div></div>
+    html = <div><Loading/></div>
   }else{
     html = 
     <Container usuario={usuario} logged={logged}>

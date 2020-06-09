@@ -4,9 +4,50 @@ import { useEffect, useState } from 'react'
 const Navigation = (props) => {
   const [rol, setRol] = useState('paciente');
   const [usuario, setUsuario] = useState(props.usuario);
+  const [menuPaciente, setMenuPaciente] =useState(<></>)
 
   useEffect(() => {
     setRol(JSON.parse(getRol()));
+
+    if (rol == 'paciente') {
+        setMenuPaciente(<><Link href={'/paciente/nueva-consulta'}  >
+            <a className="dropdown-item">
+              <span>Nueva consulta</span>
+            </a>
+          </Link>
+          <Link href="/paciente/ver-consultas">
+            <a className="dropdown-item">
+              <span>Ver consultas</span>
+            </a>
+          </Link>
+          <Link href="/paciente/">
+            <a className="dropdown-item">
+              <span>Buscar Medico</span>
+            </a>
+          </Link>
+          <Link href="/paciente/">
+            <a className="dropdown-item">
+              <span>Mis Compras</span>
+            </a>
+          </Link>
+          <Link href="/paciente/">
+            <a className="dropdown-item">
+              <span>Mis Recetas</span>
+            </a>
+          </Link>
+          <Link href="/paciente/settings">
+            <a className="dropdown-item">
+              <span>Configuracion</span>
+            </a>
+          </Link>
+          
+          </>
+      )
+    }else {
+      setMenuPaciente(<></>);
+    }
+
+
   }, [])
 
   let li; let liMenu;
@@ -34,14 +75,10 @@ const Navigation = (props) => {
         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <Link href={'/' + rol + ''}  >
             <a className="dropdown-item">
-              <span>Perfil</span>
+              <span>Mi Perfil</span>
             </a>
           </Link>
-          <Link href="/">
-            <a className="dropdown-item">
-              <span>Settings</span>
-            </a>
-          </Link>
+          {menuPaciente}
           <Link href="/logout">
             <a className="dropdown-item">
               <span>LogOut</span>
@@ -73,6 +110,16 @@ const Navigation = (props) => {
             </a>
           </Link>
         </li></>;
+    }else{
+      liMenu = <>
+      <li className="nav-item">
+        <Link href="/paciente/">
+          <a className="nav-link">
+            <span>Perfil</span>
+          </a>
+        </Link>
+      </li>
+      </>
     }
   }
   return (
@@ -87,13 +134,6 @@ const Navigation = (props) => {
           </button>
           <div className="collapse navbar-collapse" id="ftco-nav">
             <ul className="navbar-nav nav ml-auto">
-              <li className="nav-item">
-                <Link href="/about">
-                  <a className="nav-link">
-                    <span>About</span>
-                  </a>
-                </Link>
-              </li>
               <li className="nav-item">
                 <Link href="/contact">
                   <a className="nav-link">
