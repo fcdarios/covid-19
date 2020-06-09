@@ -1,36 +1,34 @@
-import Head from 'next/head';
+import Main from '../components/Main';
 import Container from '../components/Container';
-import fetch from "isomorphic-unfetch";
+import Fetch from "isomorphic-unfetch";
 import Products from '../components/Products';
 
 const Store = (props) => {
-  console.log(props)
-  return ( 
-    <div>
-      <Head>
-      <title>Tienda</title>
-      </Head>
-      <Container>
-        <div className="container mb-5 mt-6">
-          <div className="row">
-            <div className="col-md-8">
-         <h1>Farmacia ITC</h1>
-            </div>
-            <div className="col-md-4">
-         <div className="form-inline my-2 my-lg-0">
-          <input className="form-control mr-sm-2" type="text" placeholder="Search" />
-          <button className="btn btn-secondary my-2 my-sm-0" >Search</button>
-        </div>  
-            </div>
-          </div>
+  let html = 
+  <Container>
+    <div className="container mb-5 mt-6">
+      <div className="row">
+        <div className="col-md-8">
+     <h1>Farmacia ITC</h1>
         </div>
-         <Products products = {props.products}/>
-      </Container>
+        <div className="col-md-4">
+     <div className="form-inline my-2 my-lg-0">
+      <input className="form-control mr-sm-2" type="text" placeholder="Search" />
+      <button className="btn btn-secondary my-2 my-sm-0" >Search</button>
+    </div>  
+        </div>
+      </div>
     </div>
+     <Products products = {props.products}/>
+  </Container>
+  return ( 
+    <Main title='Tienda'>
+      {html}
+    </Main>
   )
 }
 Store.getInitialProps = async (ctx) => {
-  const res = await fetch("https://dev-covid-19-itc.pantheonsite.io/wp-json/wc/v3/products",
+  const res = await Fetch("https://dev-covid-19-itc.pantheonsite.io/wp-json/wc/v3/products",
   {
     method: "GET",
     credentials: 'include',

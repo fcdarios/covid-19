@@ -1,10 +1,10 @@
 import Router from "next/router";
 
 
-const Products = (props) => {
+const Products = (data) => {
   return (
     <div>
-        {props.products.map((product) => (
+        {data.products.map((product) => (
         <div className="d-flex justify-content-between align-items-center">
           <div className="list-group-item d-flex justify-content-between align-items-center list-group-item-action" key={product.id} onClick={() => Router.push(`/products/[id]`, `/products/${product.id}`)}>
             <div>
