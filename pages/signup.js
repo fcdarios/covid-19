@@ -5,13 +5,11 @@ import React, {Fragment, useState, useEffect} from 'react'
 import { useForm } from 'react-hook-form'
 import Router from 'next/router';
 
-
-
-function Login (props) {
+function Registro (props) {
 
   const [tipo, setTipo ] = useState('paciente');
+
   const {register, errors, handleSubmit} = useForm();
-  const [alerta, setAlerta] = useState('')
 
   useEffect(() =>  {
     if (localStorage.getItem('token') != null) {
@@ -22,34 +20,33 @@ function Login (props) {
 
   const procesarFormulario = (data, e) => {
     data.tipo = tipo;
+    
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     };
 
-    fetch(env.URL_SERVER+'/login', requestOptions).
+    fetch(env.URL_SERVER+'/signup', requestOptions).
     then(async response => {
       const data = await response.json();
+      
       if (data.code) {
-        console.log(data)
-        setAlerta(<div className="alert alert-danger" role="alert">
-                  {data.message}
-                  </div>)
+        console.log(data.message)  
         localStorage.clear();
       }else{
-        console.log("Usuario logueado")  
-        console.log(data)
+        console.log("Usuario registrado")  
         localStorage.setItem("token", JSON.stringify(data.token));
         localStorage.setItem("roles", JSON.stringify(data.roles));
-        localStorage.setItem("usuario", JSON.stringify(data)); 
+        localStorage.setItem("usuario", JSON.stringify(data));
+        
         if (data.medico) {
           localStorage.setItem("medico", JSON.stringify(data.medico));
         }
         else {
           localStorage.setItem("paciente", JSON.stringify(data.paciente));
         }
-
+        
         Router.push('/');
       }
       
@@ -62,14 +59,28 @@ function Login (props) {
     
   }
 
+  
+
   return ( 
-    <Main title='login'>
+    <Main title='SignUp'>
       <div className="signUp">
         <Fragment>
         <div className="page-content">
           <div className="form-v5-content">
               <form className="form-detail" method='post' id='form-registrar' onSubmit={handleSubmit(procesarFormulario)} >
-                <h2>Iniciar Sesion</h2>
+                <h2>Registra una cuenta</h2>
+                <div className="form-row">
+                    <input
+                      type="text"
+                      name="name"
+                      id="name"
+                      className="input-text"
+                      placeholder="Nombre"
+                      required
+                      ref={register}
+                    />
+                    <i className="fas fa-user" />
+                </div>
                   <div className="form-row">
                     <input   
                       type="text"
@@ -83,6 +94,19 @@ function Login (props) {
                   </div>
                   <div className="form-row">
                     <input
+                      type="text"
+                      name="email"
+                      id="email"
+                      className="input-text"
+                      placeholder="Email"
+                      required
+                      pattern="[^@]+@[^@]+.[a-zA-Z]{2,6}"
+                      ref={register}
+                    />
+                    <i className="fas fa-envelope" />
+                  </div>
+                  <div className="form-row">
+                    <input
                       type="password"
                       name="password"
                       id="password"
@@ -93,21 +117,36 @@ function Login (props) {
                     />
                     <i className="fas fa-lock" />
                   </div>
-                  {alerta}
+                  <div className="form-row">
+                    <label className="radio-container m-r-55">
+                      Paciente
+                      <input type="radio" defaultChecked="checked" name="userType" ref={register}
+                        onChange={e => setTipo('paciente')}
+                      />
+                      <span className="checkmark" />
+                    </label>
+                    <label className="radio-container">
+                      Medico
+                      <input type="radio" name="userType" ref={register} 
+                        onChange={e => setTipo('medico')}
+                      />
+                      <span className="checkmark" />
+                    </label>
+                  </div>
                   <div className="form-row-last">
                     <input
                       type="submit"
                       name="register"
                       className="register"
-                      value="Aceptar"
-                    />  
-                  </div> 
-                  <div className="form-data">
-                    <Link href="/signup">
+                      value="Registrar"
+                    />
+                  </div>
+                  <div className="form-row-last">
+                    <Link href="/login">
                       <a className="nav-link">
-                          Crea una cuenta
+                          logIn
                       </a>
-                    </Link>
+                  </Link>
                   </div>
                 </form>
               </div>
@@ -119,8 +158,4 @@ function Login (props) {
 }
 
 
-export default Login
-
-async function get(params) {
-  
-}
+export default Registro

@@ -1,7 +1,7 @@
-import Main from '../components/Main';
-import Container from '../components/Container';
+import Main from '../../components/Main';
+import Container from '../../components/Container';
 import {useEffect, useState} from 'react'
-const About = () => {
+const Index = () => {
 
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState(null);
@@ -22,15 +22,17 @@ const About = () => {
   }else{
     html = 
     <Container usuario={user} logged={logged} >
-        <h1>About</h1>
+        <h1>Perfil</h1>
     </Container>
   }
 
   return ( 
-    <Main title='About' >
+    <Main title='Home'>
       {html}
     </Main>
   )
 }
 
-export default About
+
+
+export default Index
