@@ -26,6 +26,14 @@ const Navigation = (props) => {
         </Link>
       </li></>;
   } else {
+    li = <li className="nav-item ">
+      <div className="nav-link dropdown">
+        <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          {usuario.name}
+        </button>
+        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <Link href={'/' + rol + ''}  >
+            <a className="dropdown-item">
               <span>Perfil</span>
             </a>
           </Link>
@@ -42,15 +50,6 @@ const Navigation = (props) => {
         </div>
       </div>
     </li>;
-
-    li = <li className="nav-item ">
-      <div className="nav-link dropdown">
-        <button className="dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          {usuario.name}
-        </button>
-        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <Link href={'/' + rol + ''}  >
-            <a className="dropdown-item">
     if (rol == 'medico') {
       liMenu = <>
         <li className="nav-item">
@@ -76,8 +75,6 @@ const Navigation = (props) => {
         </li></>;
     }
   }
-
-
   return (
     <div className="NavigationBar">
       <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
@@ -100,24 +97,16 @@ const Navigation = (props) => {
               <li className="nav-item">
                 <Link href="/contact">
                   <a className="nav-link">
-                          Contact
-                  </a>
-                </Link>
-              </li>
-              <li className="nav-item">
-                  <Link href="/store">
-                      <a className="nav-link">
-                          Tienda
-                      </a>
-                  </Link>
-              </li>
-              <li className="nav-item">
-                  <Link href="/login">
-
-                  <a className="nav-link">
                     <span>Contact</span>
                   </a>
                 </Link>
+                <li className="nav-item">
+                    <Link href="/store">
+                        <a className="nav-link">
+                            Tienda
+                        </a>
+                    </Link>
+                </li>
               </li>
               {liMenu}
               {li}
@@ -128,5 +117,4 @@ const Navigation = (props) => {
     </div>
   );
 };
-
 export default Navigation;
