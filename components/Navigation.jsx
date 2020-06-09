@@ -101,7 +101,7 @@ const Navigation = (props) => {
                   </a>
                 </Link>
               </li>
-              <li className="nav-item">
+                <li className="nav-item">
                     <Link href="/store">
                         <a className="nav-link">
                             Tienda
