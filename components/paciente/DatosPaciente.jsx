@@ -4,6 +4,7 @@ import Router from 'next/router';
 
 const DatosPaciente = (props) => {
   let paciente =props.paciente;
+  console.log(paciente);
  
   return (
   <div className="card">
@@ -18,9 +19,9 @@ const DatosPaciente = (props) => {
         <li className="d-flex"><span>Telefono:</span> <span>{paciente.telefono}</span></li>
         <li className="d-flex"><span>Nacimiento:</span> <span>{paciente.nacimineto}</span></li>
         <li className="d-flex"><span>No. Caso:</span> <span>{paciente.caso_covid19}</span></li>
-        <li className="d-flex"><span>Alergias:</span> <span>{paciente.municipio}</span></li>
-        <li className="d-flex"><span>Cirugias: </span> <span>{paciente.municipio}</span></li>
-        <li className="d-flex"><span>Enfermedades Crónicas:</span> <span>{paciente.municipio}</span></li>
+        <li className="d-flex"><span>Alergias:</span> <span>{paciente.alergias}</span></li>
+        <li className="d-flex"><span>Cirugias: </span> <span>{paciente.cirugias}</span></li>
+        <li className="d-flex"><span>Enfermedades Crónicas:</span> <span>{paciente.enf_cronicas}</span></li>
       </ul>
       <button className="btn" onClick={() => {Router.push('/paciente/settings')}}>
           Editar

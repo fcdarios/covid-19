@@ -70,13 +70,12 @@ const Index = () => {
                         <BotonPaciente  title='Compras' ruta='/compras'/>       
                     </div>
             </div>
-
             <div className='col-5'>
                 <DatosUsuario usuario={usuario} />
-                <EditarPaciente paciente={paciente} />
+                
             </div>
             <div className='col-7'>
-                
+              <EditarPaciente paciente={paciente} />
             </div>  
            
             

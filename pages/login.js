@@ -43,7 +43,6 @@ function Login (props) {
         localStorage.setItem("token", JSON.stringify(data.token));
         localStorage.setItem("roles", JSON.stringify(data.roles));
         localStorage.setItem("usuario", JSON.stringify(data)); 
-
         if (data.medico) {
           localStorage.setItem("medico", JSON.stringify(data.medico));
         }
