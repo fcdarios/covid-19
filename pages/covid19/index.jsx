@@ -101,10 +101,10 @@ const Index = () => {
     async function data(){
       if(loading != 2){
         let u = await getUsuario();
-        let p = await getPaciente();
-        setPaciente(JSON.parse(p))
+        
+       
         setUsuario(JSON.parse(u))
-        if(usuario && paciente){
+        if(usuario){
           setLogged(true)
           setLoading(2)
         }else {
