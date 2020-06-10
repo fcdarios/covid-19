@@ -90,8 +90,8 @@ const Map = () => {
       if(loading != 2){
         let u = await getUsuario();
        
-        setPaciente(JSON.parse(p))
-       
+        
+        setUsuario(JSON.parse(u))
         if(usuario){
           setLogged(true)
           setLoading(2)
