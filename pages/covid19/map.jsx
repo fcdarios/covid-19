@@ -1,21 +1,39 @@
+
+import Link from "next/link";
 import env from '../../env.json'
 import {getToken} from '../../src/token'
 import {getPaciente, getUsuario} from '../../src/data'
 import Main from '../../components/Main';
-import Containers from '../../components/Container';
+import Container from '../../components/Container';
 import Loading from '../../components/Loading'
+import Router from 'next/router';
+import InffectedCountryMap from '../../components/covid19/InffectedCountryMap'
+
+import Casos from '../../components/covid19/casosMexico'
 
 import {useEffect, useState} from 'react'
-import { Box, Container, Grid } from '@material-ui/core';
+const Map = () => {
 
-import InffectedCountryList from '../../components/covid19/InffectedCountryList';
-import InffectedCountryMap from '../../components/covid19/InffectedCountryMap';
+  const [loading, setLoading] = useState(0);
+  const [usuario, setUsuario] = useState(null);
+  const [paciente, setPaciente] = useState(null);
+  const [logged, setLogged] = useState(false);
 
-const Index = () => {
+
+  const [mexico, setMexico] = useState({
+    active_cases: "0",
+    cases: "0",
+    country_name: "0",
+    deaths: "0",
+  });
+
+
+  const [global, setGlobal] = useState(null);
 
   let [inffectedCountries, setinffectedCountries] = useState([]);
   let [updatedAt, setUpdatedAt] = useState([]);
-
+  let [cargados, setCargados] = useState(0);
+  
   useEffect(() => {
     const fetchData = async () => {
       let inffectedCountriesResponse = await fetch(
@@ -54,6 +72,8 @@ const Index = () => {
             };
           }),
         );
+        
+        setCargados(1);
 
         setUpdatedAt(statistic_taken_at);
       }
@@ -62,17 +82,58 @@ const Index = () => {
     fetchData();
   }, []);
 
-  return (
-    <Grid container>
-      <Grid style={{ height: '100vh', overflowY: 'auto' }} lg={6} sm={12} item>
-        <InffectedCountryList inffectedCountries={inffectedCountries} updatedAt={updatedAt} />
-      </Grid>
-      <Grid style={{ height: '100vh' }} lg={6} sm={12} item>
-        {/* <InffectedCountryMap inffectedCountries={inffectedCountries} /> */}
-      </Grid>
-    </Grid>
-  );
+
+
+
+  useEffect(() =>  {
+    async function data(){
+      if(loading != 2){
+        let u = await getUsuario();
+        let p = await getPaciente();
+        setPaciente(JSON.parse(p))
+        setUsuario(JSON.parse(u))
+        if(usuario && paciente){
+          setLogged(true)
+          setLoading(2)
+        }else {
+          setLoading(1)
+        }
+      }
+    }
+    data();
+  },[loading]);
+
+
+  
+  let html
+  if (loading != 2) {
+    html = <div><Loading/></div>
+  }else{
+    html = 
+    <Container usuario={usuario} logged={logged}>
+      <div className="covid">
+        <div className="row">
+        <div className="col-12">
+          <button className='btn boton' onClick={()=> {Router.push('/covid19/')}} >
+            Regresar
+          </button>
+        </div>
+
+         <div className="col-12">
+            <InffectedCountryMap inffectedCountries={inffectedCountries} />
+         </div>
+         
+        </div>
+      </div>
+    </Container>
+  }
+
+  return ( 
+    <Main title='Paciente'>
+      {html}
+    </Main>
+  )
 }
 
-export default Index
+export default Map
 

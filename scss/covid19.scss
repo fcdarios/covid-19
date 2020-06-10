@@ -1,7 +1,17 @@
 .covid{
-    
+    .boton{
+        padding: 10px;
+        margin-bottom: 20px;
+        height: 50px;
+        width: 200px;
+        background: #4A5F63;
+        color: #fff;
+        font-weight: 800;
+        font-size: 20px;
+    }
     .card{
-
+        margin-bottom: 10px;
+        background: #f5fffd;
         .card-header{
             font-size: 25px;
             font-weight: 600;
@@ -13,6 +23,11 @@
             padding: 0px 20px 20px 20px;
         }
     }
-
+    .cardMap{
+        background: #f5fffd;
+        padding: 20px;
+        height: 600px;
+        width: 100%;
+    }
 
 }

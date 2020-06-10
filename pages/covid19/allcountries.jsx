@@ -1,15 +1,16 @@
+
+import Link from "next/link";
 import env from '../../env.json'
 import {getToken} from '../../src/token'
 import {getPaciente, getUsuario} from '../../src/data'
 import Main from '../../components/Main';
 import Container from '../../components/Container';
 import Loading from '../../components/Loading'
+import Router from 'next/router';
 
 import Casos from '../../components/covid19/casosMexico'
-import CardOption from '../../components/covid19/CardOption'
 
 import {useEffect, useState} from 'react'
-import Link from "next/link";
 const Index = () => {
 
   const [loading, setLoading] = useState(0);
@@ -24,7 +25,6 @@ const Index = () => {
     country_name: "0",
     deaths: "0",
   });
-
 
 
   const [global, setGlobal] = useState(null);
@@ -83,19 +83,6 @@ const Index = () => {
 
 
 
-  useEffect(() =>  {
-    if(cargados == 1){
-      inffectedCountries.forEach(element => {
-        if (element.country_name == 'Mexico') {
-          
-          setMexico(element)
-        }
-        console.log(element)
-      });
-      
-    }
-  },[cargados]);
-
 
   useEffect(() =>  {
     async function data(){
@@ -125,37 +112,20 @@ const Index = () => {
     <Container usuario={usuario} logged={logged}>
       <div className="covid">
         <div className="row">
-          <div className="col-4">
-            <Casos casos={mexico} />
-          </div>
-          <div className="col-4">
-            <div className='cardOption'>
-              <div className="card text-center">
-                  <img src="/coronavirus.png" className="card-img-top" alt="Consultations" />
-              <div className="card-body">
-                  <Link href="/covid19/allcountries">
-                  <a className="nav-link">
-                      <button className="btn btn-primary">Todos los paises</button>
-                  </a>
-                  </Link>
-              </div>
-              </div>
-          </div>
-          </div>
-          <div className="col-4">
-              <div className='cardOption'>
-                <div className="card text-center">
-                    <img src="/mapa.jpg" className="card-img-top" alt="Consultations" />
-                <div className="card-body">
-                    <Link href="/covid19/map">
-                    <a className="nav-link">
-                        <button className="btn btn-primary">Ver Mapa</button>
-                    </a>
-                    </Link>
+        <div className="col-12">
+          <button className='btn boton' onClick={()=> {Router.push('/covid19/')}} >
+            Regresar
+          </button>
+        </div>
+
+          { 
+              inffectedCountries.map(country => (
+                <div className="col-4">
+                  <Casos casos={country} />
                 </div>
-                </div>
-            </div>
-          </div>
+              ))
+          } 
+         
         </div>
       </div>
     </Container>

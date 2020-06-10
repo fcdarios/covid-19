@@ -9,7 +9,7 @@ const FlagPin = ({ urlFlag, cases }) => (
 
 export default function InffectedCountryMap({ inffectedCountries }) {
   return (
-    <div style={{ height: '100%', width: '100%' }}>
+    <div className="card cardMap">
       <GoogleMapReact
         bootstrapURLKeys={{ key: 'AIzaSyACek9CY8LUHKHJgPhN0yXbt03eDkGhJHg' }}
         defaultCenter={{ lat: 0, lng: 0 }}
@@ -27,6 +27,8 @@ export default function InffectedCountryMap({ inffectedCountries }) {
           ) : null,
         )}
       </GoogleMapReact>
+    
     </div>
+    
   );
 }
