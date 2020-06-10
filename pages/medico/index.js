@@ -44,7 +44,7 @@ const Index = () => {
               <div className="card mb-3 text-center">
                 <img src="/services.jpg" className="card-img-top" alt="Consultations" />
                 <div className="card-body">
-                  <Link href="/Services">
+                  <Link href="/medico/Services">
                     <a className="nav-link">
                       <button className="btn btn-secondary">Show services</button>
                     </a>
@@ -56,9 +56,21 @@ const Index = () => {
               <div className="card mb-3 text-center">
                 <img src="/invoice.jpeg" className="card-img-top" alt="Consultations" />
                 <div className="card-body">
-                  <Link href="/Invoice">
+                  <Link href="/medico/Invoice">
                     <a className="nav-link">
                       <button className="btn btn-secondary">Show invoice</button>
+                    </a>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-4">
+              <div className="card mb-3 text-center">
+                <img src="/specialty.png" className="card-img-top" alt="Consultations" />
+                <div className="card-body">
+                  <Link href="/medico/Specialty">
+                    <a className="nav-link">
+                      <button className="btn btn-secondary">Specialty</button>
                     </a>
                   </Link>
                 </div>

@@ -1,6 +1,58 @@
 .paciente{
 
 
+    .verConsultas{
+        width: 95%;
+        background: #fff;
+        padding: 0px;
+        margin: 0px 0px 50px 0px;
+
+        .cargando{
+            background: #fefefe;
+            align-items: center;
+            text-align: center;
+            color: #c4c4c4;
+            padding-left: 45%;
+        }
+
+        .header{
+            background: #4A5F63;
+            padding: 10px;
+            margin: 0px;
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+        }
+        .body{
+            background: rgb(197, 214, 218);
+            padding: 10px;
+            margin: 0px;
+            font-size: 16px;
+            font-weight: 400;
+            color: #222;
+            border: solid 1px #4a5f6325;
+
+            align-items: center;
+        }
+        .body:hover{
+            background: rgb(145, 160, 163);
+            
+        }
+        button{
+            width: 50%;
+            padding: 8px;
+            margin: 0px;
+        }
+        .eye{  
+            background: rgb(250, 224, 137);
+            color: #444;
+        }
+        .pdf{  
+            background: rgb(226, 110, 110);
+            color: #fff;
+        }
+    }
+
     .nuevaConsulta{
         background: #fff;
         padding: 20px;

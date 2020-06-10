@@ -5,6 +5,7 @@ import Main from '../../components/Main';
 import Container from '../../components/Container';
 import BotonPaciente from '../../components/paciente/BotonPaciente';
 import NConsulta from '../../components/paciente/NConsulta';
+import Loading from '../../components/Loading'
 
 
 
@@ -18,7 +19,7 @@ const NuevaConsulta = () => {
   const [paciente, setPaciente] = useState(null);
   const [logged, setLogged] = useState(false);
 
-  
+
   const [especialidades, setEspecialidades] = useState([
     {
       id: 0,
@@ -81,7 +82,7 @@ const NuevaConsulta = () => {
 
   let html
   if (loading) {
-    html = <div></div>
+    html = <div><Loading/></div>
   }else{
     html = 
     <Container usuario={usuario} logged={logged}>
@@ -90,10 +91,13 @@ const NuevaConsulta = () => {
           <div className='col-12 d-flex justify-content-center p-2'>
             <h2>Nueva consulta</h2>
           </div>
+          <div className='col-1'>
+            
+            </div>
           <div className='col-10'>
             <NConsulta usuario={usuario} paciente={paciente} especialidades={especialidades} />
           </div>
-          <div className='col-2'>
+          <div className='col-1'>
             
           </div>
         </div>

@@ -2,7 +2,17 @@ import env from '../../env.json'
 import { useForm } from 'react-hook-form'
 import {useEffect, useState} from 'react'
 import {getToken} from '../../src/token'
+
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Router from 'next/router';
+import {setPacientelocal} from '../../src/data'
 const EditarPaciente = (props) => {
+  const [open, setOpen] = React.useState(false);
     const [paciente, setPaciente] = useState({
       direccion : '',
       municipio: '',
@@ -13,6 +23,7 @@ const EditarPaciente = (props) => {
       caso_covid19: ''
     })
     useEffect(() => {
+     
       async function get(){
         await setPaciente(props.paciente);
       }
@@ -24,11 +35,18 @@ const EditarPaciente = (props) => {
     const {register, errors, handleSubmit} = useForm();
 
    
-    
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+  
+    const handleClose = () => {
+      setOpen(false);
+      localStorage.setItem('paciente', JSON.stringify(paciente))
+      Router.push('/paciente/');
+    };
 
   const procesarFormulario = async (data, e) =>  {
-    console.log(data);
-    console.log('===========')
     try {
       let token = JSON.parse(getToken());
       let requestOptions = {
@@ -38,7 +56,16 @@ const EditarPaciente = (props) => {
       };
       await fetch(env.URL_SERVER+'/paciente', requestOptions).
         then(async response => {
-          console.log(response);
+          setPaciente({...paciente, 
+            direccion : data.direccion,
+            municipio: data.municipio,
+            estado: data.estado,
+            pais: data.pais,
+            telefono: data.telefono,
+            nacimiento: data.nacimiento,
+          })
+          
+          setOpen(true);
       });
 
     } catch (error) {
@@ -95,6 +122,24 @@ const EditarPaciente = (props) => {
           </div>  
         </div>   
       </form>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Correcto"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Datos actualizados con exito
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Aceptar
+          </Button>
+        </DialogActions>
+      </Dialog>
       </div>
     );
   };

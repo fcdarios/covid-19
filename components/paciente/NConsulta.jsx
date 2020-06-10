@@ -1,4 +1,13 @@
 import env from '../../env.json'
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+
+import Router from 'next/router';
+
 
 import { useForm } from 'react-hook-form'
 import {useEffect, useState} from 'react'
@@ -7,14 +16,26 @@ const NConsulta = (props) => {
   const {register, errors, handleSubmit} = useForm();
   const [tipo, setTipo ] = useState('leve');
   const [especialidades, setEspecialidades] = useState(props.especialidades)
+  const [open, setOpen] = React.useState(false);
+  const [consulta, setConsulta] = useState({
+    sintomas: ''
+  });
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    Router.push('/paciente/');
+  };
 
   
   const procesarFormulario = async (data, e) =>  {
+    
     data.estado = tipo;
     data.id_paciente = props.paciente.id;
-    data.evidencia = ''
-
-    
+    data.evidencia = ''    
     try {
       let token = JSON.parse(getToken());
       let requestOptions = {
@@ -24,13 +45,14 @@ const NConsulta = (props) => {
       };
       await fetch(env.URL_SERVER+'/consulta', requestOptions).
         then(async response => {
-          console.log(response);
+          setConsulta(data);
+          setOpen(true);
       });
 
     } catch (error) {
         console.log('==========='+error)
     }
-
+    
 
   }
     return (
@@ -47,6 +69,11 @@ const NConsulta = (props) => {
               </div>
               <div className='col-2'> 
                 <div className='row'>
+                <div className='row'>
+                  <label className="radio-container m-r-55">
+                    Estado
+                  </label>
+                </div>
                   <label className="radio-container m-r-55">
                     Leve
                     <input type="radio" defaultChecked="checked" name="userType" ref={register}
@@ -100,6 +127,24 @@ const NConsulta = (props) => {
               </div> 
             </div>
         </form>
+        <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Consulta generada con exito"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Sintomas : {consulta.sintomas}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Aceptar
+          </Button>
+        </DialogActions>
+      </Dialog>
       </div>
     );
   };

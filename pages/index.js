@@ -1,6 +1,8 @@
 import Main from '../components/Main';
 import Container from '../components/Container';
 import {useEffect, useState} from 'react'
+
+
 const Index = () => {
 
   const [loading, setLoading] = useState(true);
@@ -18,7 +20,7 @@ const Index = () => {
 
   let html
   if (loading) {
-    html = <div></div>
+    html = <div>Cargando</div>
   }else{
     html = 
     <Container usuario={user} logged={logged} >
