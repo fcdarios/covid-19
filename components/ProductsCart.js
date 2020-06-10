@@ -1,12 +1,12 @@
 import Router from "next/router";
 
 
-const Products = (data) => {
+const ProductsCart = (props) => {
   return (
     <div>
-        {data.products.map((product) => (
+        {JSON.parse(props.products).map((product) => (
         <div className="d-flex justify-content-between align-items-center">
-          <div className="list-group-item d-flex justify-content-between align-items-center list-group-item-action" key={product.id} onClick={() => Router.push(`/products/[id]`, `/products/${product.id}`)}>
+          <div className="list-group-item d-flex justify-content-between align-items-center list-group-item-action">
             <div>
               <h3>
                 {product.id}. {product.name} {product.short_description}
@@ -24,4 +24,4 @@ const Products = (data) => {
   );
 };
 
-export default Products;
+export default ProductsCart;

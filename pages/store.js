@@ -2,10 +2,28 @@ import Main from '../components/Main';
 import Container from '../components/Container';
 import Fetch from "isomorphic-unfetch";
 import Products from '../components/Products';
+import {useEffect, useState} from 'react'
 
 const Store = (props) => {
-  let html = 
-  <Container>
+
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [logged, setLogged] = useState(false);
+
+  useEffect(() =>  {
+    if (localStorage.getItem('usuario') != null) {
+      setUser(JSON.parse(localStorage.getItem('usuario')));
+      setLogged(true);
+    }
+    setLoading(false);
+  }, []);
+
+  let html
+  if (loading) {
+    html = <div></div>
+  }else{
+  html = 
+  <Container usuario={user} logged={logged} >
     <div className="container mb-5 mt-6">
       <div className="row">
         <div className="col-md-8">
@@ -21,6 +39,7 @@ const Store = (props) => {
     </div>
      <Products products = {props.products}/>
   </Container>
+  }
   return ( 
     <Main title='Tienda'>
       {html}

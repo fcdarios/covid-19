@@ -1,13 +1,42 @@
 import { useRouter } from "next/router";
+import Router from "next/router";
 import fetch from "isomorphic-unfetch";
 import Main from '../../components/Main';
 import Container from "../../components/Container";
-
-const Product = ({ product }) => {
+import {useEffect, useState} from 'react'
+const Product = (props) => {
+  let product = props.products
   const router = useRouter();
   const { id } = router.query;
- let html=
- <Container>
+
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+  const [logged, setLogged] = useState(false);
+  let ant;
+  
+  const handleClose = () => {
+    if (localStorage.getItem('cart')==null) {
+      localStorage.setItem('cart', "["+JSON.stringify(product));
+    } else {
+      ant=localStorage.getItem('cart');
+      localStorage.setItem('cart', ant+","+JSON.stringify(product));
+    }
+    Router.push('/store', '/store');
+  };
+
+  useEffect(() =>  {
+    if (localStorage.getItem('usuario') != null) {
+      setUser(JSON.parse(localStorage.getItem('usuario')));
+      setLogged(true);
+    }
+    setLoading(false);
+  }, []);
+  let html
+  if (loading) {
+    html = <div></div>
+  }else{
+      html=
+ <Container usuario={user} logged={logged} >
    <div className="row">
      <div className="col-md-6 offset-md-3">
        <div className="card">
@@ -26,12 +55,14 @@ const Product = ({ product }) => {
            </h3>
            <h4>Precio: {product.price}</h4>
            <p>Descripcion: {product.description} </p>
-         <button className="btn btn-success btn-sm">Add to cart</button>
+         <button className=" btn btn-info ml-2" onClick={() => Router.push(`/store`, `/store`)} s>Back</button>
+         <button className="btn btn-success " onClick={handleClose} s>Add to cart</button>
          </div>
        </div>
      </div>
    </div>
  </Container>
+  }
   return (
     <Main title='Tienda'>
       {html}
@@ -50,7 +81,7 @@ Product.getInitialProps = async (ctx) => {
   });
   const data = await res.json();
   return{
-    product: data
+    products: data
   }
 };
 

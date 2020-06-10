@@ -110,6 +110,13 @@ const Navigation = (props) => {
                 </li>
               {liMenu}
               {li}
+              <li className="nav-item">
+                    <Link href="/cart">
+                        <a className="nav-link">
+                            Cart
+                        </a>
+                    </Link>
+                </li>
             </ul>
           </div>
         </div>
