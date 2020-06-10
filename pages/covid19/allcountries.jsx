@@ -15,7 +15,7 @@ const Index = () => {
 
   const [loading, setLoading] = useState(0);
   const [usuario, setUsuario] = useState(null);
-  const [paciente, setPaciente] = useState(null);
+  
   const [logged, setLogged] = useState(false);
 
 
@@ -88,10 +88,10 @@ const Index = () => {
     async function data(){
       if(loading != 2){
         let u = await getUsuario();
-        let p = await getPaciente();
-        setPaciente(JSON.parse(p))
+     
+        
         setUsuario(JSON.parse(u))
-        if(usuario && paciente){
+        if(usuario ){
           setLogged(true)
           setLoading(2)
         }else {

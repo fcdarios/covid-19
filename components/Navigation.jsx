@@ -48,7 +48,7 @@ const Navigation = (props) => {
     }
 
 
-  }, [])
+  }, [rol])
 
   let li; let liMenu;
   if (!props.logged) {
@@ -135,9 +135,9 @@ const Navigation = (props) => {
           <div className="collapse navbar-collapse" id="ftco-nav">
             <ul className="navbar-nav nav ml-auto">
               <li className="nav-item">
-                <Link href="/contact">
+                <Link href="/covid19">
                   <a className="nav-link">
-                    <span>Contact</span>
+                    <span>Covid 19</span>
                   </a>
                 </Link>
               </li>
