@@ -2,10 +2,15 @@ import env from '../../env.json'
 import {getToken} from '../../src/token'
 import {getPaciente, getUsuario} from '../../src/data'
 import Main from '../../components/Main';
-import Container from '../../components/Container';
+import Containers from '../../components/Container';
 import Loading from '../../components/Loading'
 
 import {useEffect, useState} from 'react'
+import { Box, Container, Grid } from '@material-ui/core';
+
+import InffectedCountryList from '../../components/covid19/InffectedCountryList';
+import InffectedCountryMap from '../../components/covid19/InffectedCountryMap';
+
 const Index = () => {
 
   let [inffectedCountries, setinffectedCountries] = useState([]);
@@ -63,7 +68,7 @@ const Index = () => {
         <InffectedCountryList inffectedCountries={inffectedCountries} updatedAt={updatedAt} />
       </Grid>
       <Grid style={{ height: '100vh' }} lg={6} sm={12} item>
-        <InffectedCountryMap inffectedCountries={inffectedCountries} />
+        {/* <InffectedCountryMap inffectedCountries={inffectedCountries} /> */}
       </Grid>
     </Grid>
   );

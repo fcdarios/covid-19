@@ -23,6 +23,7 @@ const EditarPaciente = (props) => {
       caso_covid19: ''
     })
     useEffect(() => {
+     
       async function get(){
         await setPaciente(props.paciente);
       }
